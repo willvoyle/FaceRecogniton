@@ -1,4 +1,4 @@
-﻿namespace Azure.CognitiveServices.FaceRecognition.Services
+﻿namespace Azure.CognitiveServices.FaceRecognition.Domain.Face
 {
     public class DetectFaceResult
     {
@@ -12,5 +12,5 @@
         public decimal Height { get; set; }
         public decimal Left { get; set; }
         public decimal Top { get; set; }
-            }
+    }
 }

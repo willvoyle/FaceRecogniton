@@ -37,6 +37,7 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
             {
 
             }
+
             var verifyResult = _faceService.VerifyFace(new Domain.Face.VerifyFaceModel { FaceId = detectResult.FaceId, PersonGroupId = pesronGorupId, PersonId = personId });
 
             return View("Index");
