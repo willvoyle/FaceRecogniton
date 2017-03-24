@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Validate User</h2>
+
+<div style="margin: 0 auto; width: 980px; text-align: center">
+    <div style="float: left; border: 4px solid #ccc; padding: 5px">
+        <div id="Camera">
+        </div>
+        <br>
+        <input type="button" value="Capture" onclick="webcam.capture();" />
+    </div>
+</div>   
+
+<p id="validateMessage">
+
+</p>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/jquery.webcam.min.js")"></script>
+    <script type="text/javascript">
+
+            $("#Camera").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: "@Url.Content("~/Scripts/jscam.swf")",
+                onTick: function () { },
+                onSave: function () {
+                    UploadPic();
+                },
+                onCapture: function () {
+                    webcam.save("@Url.Content("~/Picture/Upload")/");
+             },
+                debug: function () { },
+                onLoad: function () { }
+
+            });
+
+    </script>
+}  

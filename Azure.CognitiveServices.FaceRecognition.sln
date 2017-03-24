@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition", "Azure.CognitiveServices.FaceRecognition\Azure.CognitiveServices.FaceRecognition.csproj", "{DFF52E96-38D2-466D-AFC4-593355E4B1DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition.Domain", "Azure.CognitiveServices.FaceRecognition.Domain\Azure.CognitiveServices.FaceRecognition.Domain.csproj", "{712B6138-F919-423B-85A2-0124B7C7A027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition.Mvc", "Azure.CognitiveServices.FaceRecognition.Mvc\Azure.CognitiveServices.FaceRecognition.Mvc.csproj", "{30DB53BF-09CE-469B-92D2-C49F58C3C1D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition.FaceImporter", "Azure.CognitiveServices.FaceRecognition.FaceImporter\Azure.CognitiveServices.FaceRecognition.FaceImporter.csproj", "{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{DFF52E96-38D2-466D-AFC4-593355E4B1DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF52E96-38D2-466D-AFC4-593355E4B1DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF52E96-38D2-466D-AFC4-593355E4B1DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712B6138-F919-423B-85A2-0124B7C7A027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712B6138-F919-423B-85A2-0124B7C7A027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712B6138-F919-423B-85A2-0124B7C7A027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712B6138-F919-423B-85A2-0124B7C7A027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DB53BF-09CE-469B-92D2-C49F58C3C1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DB53BF-09CE-469B-92D2-C49F58C3C1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DB53BF-09CE-469B-92D2-C49F58C3C1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DB53BF-09CE-469B-92D2-C49F58C3C1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
