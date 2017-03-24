@@ -3,19 +3,22 @@ using Azure.CognitiveServices.FaceRecognition.Services.Interfaces;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System;
 
 namespace Azure.CognitiveServices.FaceRecognition.Services
 {
     public class PersonService : IPersonService
     {
+        private readonly HttpClient _client;
+
+        public PersonService()
+        {
+            _client = new HttpClient();
+            _client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "6ec53ba17581465594b8a7e989272787");
+        }
+
         public AddFaceToPersonResult AddFaceToPerson(byte[] imageData, string personGroupId, string personId, string descrption = null)
         {
-            var client = new HttpClient();
-
-            // Request headers
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "6ec53ba17581465594b8a7e989272787");
-
-            // Request parameters
             var uri = $"https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/{personGroupId}/persons/{personId}/persistedFaces";
 
             HttpResponseMessage response;
@@ -23,7 +26,7 @@ namespace Azure.CognitiveServices.FaceRecognition.Services
             using (var content = new ByteArrayContent(imageData))
             {
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                response = client.PostAsync(uri, content).Result;
+                response = _client.PostAsync(uri, content).Result;
             }
 
             if (!response.IsSuccessStatusCode)
@@ -32,6 +35,20 @@ namespace Azure.CognitiveServices.FaceRecognition.Services
             }
 
             return JsonConvert.DeserializeObject<AddFaceToPersonResult>(response.Content.ReadAsStringAsync().Result);
+        }
+
+        public GetPersonResult GetPerson(string personGroupId, string personId)
+        {
+            var uri = $"https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/{personGroupId}/persons/{personId}";
+
+            var response = _client.GetAsync(uri).Result;
+
+            if (response == null)
+            {
+                return null;
+            }
+
+            return new GetPersonResult();
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using Azure.CognitiveServices.FaceRecognition.Domain.Face;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.CognitiveServices.FaceRecognition.Services
 {
@@ -19,19 +21,35 @@ namespace Azure.CognitiveServices.FaceRecognition.Services
 
         public IdentifyFaceResult IdentifyFace(IdentifyFaceModel identifyModel)
         {
-            return new IdentifyFaceResult();
+            var uri = "https://westus.api.cognitive.microsoft.com/face/v1.0/identify";
+
+            HttpResponseMessage response;
+
+            byte[] byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(identifyModel));
+            
+            using (var content = new ByteArrayContent(byteData))
+            {
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                response = _client.PostAsync(uri, content).Result;
+            };
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<List<IdentifyFaceResult>>(response.Content.ReadAsStringAsync().Result).FirstOrDefault();
         }
 
         public DetectFaceResult DetectFace(byte[] imageData)
         {
-            // Request parameters
             var uri = $"https://westus.api.cognitive.microsoft.com/face/v1.0/detect";
 
             HttpResponseMessage response;
 
             using (var content = new ByteArrayContent(imageData))
             {
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                 response = _client.PostAsync(uri, content).Result;
             }
 
@@ -40,12 +58,11 @@ namespace Azure.CognitiveServices.FaceRecognition.Services
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<DetectFaceResult>(response.Content.ReadAsStringAsync().Result);
+            return JsonConvert.DeserializeObject<List<DetectFaceResult>>(response.Content.ReadAsStringAsync().Result).FirstOrDefault();
         }
 
         public VerifyFaceResult VerifyFace(VerifyFaceModel verifyModel)
         {
-            // Request parameters
             var uri = $"https://westus.api.cognitive.microsoft.com/face/v1.0/verify";
 
             HttpResponseMessage response;

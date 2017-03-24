@@ -1,6 +1,11 @@
-﻿using Azure.CognitiveServices.FaceRecognition.Services;
+﻿using Azure.CognitiveServices.FaceRecognition.Domain.Face;
+using Azure.CognitiveServices.FaceRecognition.Services;
 using Azure.CognitiveServices.FaceRecognition.Services.Interfaces;
+using System;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Mvc;
 
 namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
@@ -9,6 +14,9 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
     {
         private readonly IPersonService _personService;
         private readonly IFaceService _faceService;
+
+        //TODO: Remove
+        private const string personGroupId = "london";
 
         public PictureController()
         {
@@ -26,21 +34,57 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
         [HttpPost]
         public ActionResult Upload()
         {
-            var personId = "e64bd0d7-6d3a-4b55-81ed-b2d93b37ae37";
-            var pesronGorupId = "london";
+            var imageData = ProcessRequestImage(Request.InputStream);
 
-            var bytes = Request.InputStream.ToByteArray();
-
-            var detectResult = _faceService.DetectFace(bytes);
+            var detectResult = _faceService.DetectFace(imageData);
 
             if (detectResult == null)
             {
-
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
 
-            var verifyResult = _faceService.VerifyFace(new Domain.Face.VerifyFaceModel { FaceId = detectResult.FaceId, PersonGroupId = pesronGorupId, PersonId = personId });
+            var identityModel = new IdentifyFaceModel { PersonGroupId = personGroupId, FaceIds = new string[] { detectResult.FaceId } };
+            var identityResult = _faceService.IdentifyFace(identityModel);
+
+            if (identityResult == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+
+            var personId = identityResult.Candidates.FirstOrDefault()?.PersonId;
+
+            if (string.IsNullOrEmpty(personId))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            //Search PersonID
+            _personService.GetPerson(personGroupId, personId);
 
             return View("Index");
+        }
+
+        private byte[] ProcessRequestImage(Stream stream)
+        {
+            var reader = new StreamReader(stream);
+
+            return reader.ReadToEnd().ToByteArray();
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static byte[] ToByteArray(this string text)
+        {
+            int numBytes = (text.Length) / 2;
+            byte[] bytes = new byte[numBytes];
+
+            for (int x = 0; x < numBytes; ++x)
+            {
+                bytes[x] = Convert.ToByte(text.Substring(x * 2, 2), 16);
+            }
+
+            return bytes;
         }
     }
 
