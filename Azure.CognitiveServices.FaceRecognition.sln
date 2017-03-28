@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.Fac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition.FaceImporter", "Azure.CognitiveServices.FaceRecognition.FaceImporter\Azure.CognitiveServices.FaceRecognition.FaceImporter.csproj", "{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.CognitiveServices.FaceRecognition.Data", "Azure.CognitiveServices.FaceRecognition.Data\Azure.CognitiveServices.FaceRecognition.Data.csproj", "{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1208BEF-7601-4A46-87A8-CC907B5E0FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

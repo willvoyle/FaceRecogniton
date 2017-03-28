@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{712B6138-F919-423B-85A2-0124B7C7A027}</ProjectGuid>
+    <ProjectGuid>{2E0FF5A6-05AD-43B5-9F00-5B170F37AAA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Azure.CognitiveServices.FaceRecognition.Domain</RootNamespace>
-    <AssemblyName>Azure.CognitiveServices.FaceRecognition.Domain</AssemblyName>
+    <RootNamespace>Azure.CognitiveServices.FaceRecognition.Data</RootNamespace>
+    <AssemblyName>Azure.CognitiveServices.FaceRecognition.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,16 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Face\DetectFaceResult.cs" />
-    <Compile Include="Face\IdentifyFaceModel.cs" />
-    <Compile Include="Face\IdentifyFaceResult.cs" />
-    <Compile Include="Person\AddFaceToPersonResult.cs" />
-    <Compile Include="Person\AddPersonModel.cs" />
-    <Compile Include="Person\AddPersonResult.cs" />
-    <Compile Include="Person\GetPersonResult.cs" />
+    <Compile Include="Entities\Face.cs" />
+    <Compile Include="FaceContext.cs" />
+    <Compile Include="Migrations\201703281608482_inital-commit.cs" />
+    <Compile Include="Migrations\201703281608482_inital-commit.Designer.cs">
+      <DependentUpon>201703281608482_inital-commit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Face\VerifyFaceModel.cs" />
-    <Compile Include="Face\VerifyFaceResult.cs" />
+    <Compile Include="Repositories\FaceRepository.cs" />
+    <Compile Include="Repositories\IFaceRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703281608482_inital-commit.resx">
+      <DependentUpon>201703281608482_inital-commit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

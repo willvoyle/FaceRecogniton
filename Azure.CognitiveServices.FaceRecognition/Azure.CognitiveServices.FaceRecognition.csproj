@@ -45,10 +45,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FaceService.cs" />
-    <Compile Include="Services\GetPersonResult.cs" />
     <Compile Include="Services\Interfaces\IFaceService.cs" />
     <Compile Include="Services\Interfaces\IPersonService.cs" />
+    <Compile Include="Services\Interfaces\IPesronGorupService.cs" />
     <Compile Include="Services\PersonService.cs" />
+    <Compile Include="Services\PesronGorupService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Azure.CognitiveServices.FaceRecognition.Domain\Azure.CognitiveServices.FaceRecognition.Domain.csproj">

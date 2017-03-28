@@ -1,4 +1,5 @@
-﻿using Azure.CognitiveServices.FaceRecognition.Domain.Face;
+﻿using Azure.CognitiveServices.FaceRecognition.Data.Repositories;
+using Azure.CognitiveServices.FaceRecognition.Domain.Face;
 using Azure.CognitiveServices.FaceRecognition.Services;
 using Azure.CognitiveServices.FaceRecognition.Services.Interfaces;
 using System;
@@ -14,6 +15,7 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
     {
         private readonly IPersonService _personService;
         private readonly IFaceService _faceService;
+        private readonly IFaceRepository _faceRepository;
 
         //TODO: Remove
         private const string personGroupId = "london";
@@ -22,6 +24,7 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
         {
             _personService = new PersonService();
             _faceService = new FaceService();
+            _faceRepository = new FaceRepository();
         }
 
         // GET: Picture
@@ -58,9 +61,9 @@ namespace Azure.CognitiveServices.FaceRecognition.Mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            //Search PersonID
-            _personService.GetPerson(personGroupId, personId);
+            var face = _faceRepository.Get(Guid.Parse(personId));
 
+            ViewBag.Name = face?.Name;
             return View("Index");
         }
 

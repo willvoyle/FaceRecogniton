@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System;
+using System.Text;
 
 namespace Azure.CognitiveServices.FaceRecognition.Services
 {
@@ -35,6 +36,28 @@ namespace Azure.CognitiveServices.FaceRecognition.Services
             }
 
             return JsonConvert.DeserializeObject<AddFaceToPersonResult>(response.Content.ReadAsStringAsync().Result);
+        }
+
+        public AddPersonResult AddPerson(AddPersonModel model, string personGroupId)
+        {
+            var uri = $"https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/{personGroupId}/persons";
+
+            HttpResponseMessage response;
+
+            byte[] byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+            
+            using (var content = new ByteArrayContent(byteData))
+            {
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                response = _client.PostAsync(uri, content).Result;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<AddPersonResult>(response.Content.ReadAsStringAsync().Result);
         }
 
         public GetPersonResult GetPerson(string personGroupId, string personId)
